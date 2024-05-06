@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot with Image Input</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Link to Font Awesome CSS -->
+    <link rel="stylesheet" type="text/css" href="../static/chatbot.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+
+<div class="chat-container">
+    <div class="chat-messages" id="chat-messages">
+        <!-- Chat messages will be displayed here -->
+    </div>
+    <div class="input-container">
+        <form action="/process-data" method="post" enctype="multipart/form-data">
+            <input type="file" id="image-input" name="image" accept="image/*"> <!-- Image input button -->
+            <button type="submit" class="btn btn-primary btn-arrow-right">
+                 <i class="fas fa-arrow-right"></i>
+            </button> <!-- Button to send image -->
+        </form>
+    </div>
+</div>
+
+<!-- <script>
+    function sendData() {
+        // This function will be called when the "Send Image" button is clicked
+        var inputElement = document.getElementById("image-input");
+        var file = inputElement.files[0]; // Get the selected file
+
+
+        var formData = new FormData();
+        if(file)
+        {
+        formData.append("image",file);
+        }
+
+        fetch("/process-data",{
+            method:"POST",
+            body:formData
+        })
+        .then(response=> response.text())
+        .then(result=> {
+            fetch("/get-result",{
+                method:"POST",
+                body:result
+            })
+           
+        })
+        .catch(err=> {
+            console.error('Error:',error);
+        })
+    }
+</script> -->
+
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>
+
+<!-- .then(result=> {
+    var chatMessages = document.getElementById("chat-messages");
+    var message = document.createElement("div")
+    message.textContent = result
+    chatMessages.appendChild(message);
+}) -->

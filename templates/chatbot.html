@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot with Image Input</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Link to Font Awesome CSS -->
+    <link rel="stylesheet" type="text/css" href="../static/chatbot.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+
+    <div class="chat-container">
+        <div class="chat-messages" id="chat-messages">
+            <!-- Display the disease name here -->
+            <div>Disease: {{ disease }}</div>
+        </div>
+        <div class="input-container">
+            <input type="text" id="text-input">
+            <button class="btn btn-primary btn-arrow-right" onclick="sendData()">
+                 <i class="fas fa-arrow-right"></i>
+            </button> <!-- Button to send image -->
+        </div>
+    </div>
+
+<script>
+    function sendData() {
+        // This function will be called when the "Send Image" button is clicked
+        var textInput = document.getElementById("text-input").value;
+
+        var formData = new FormData();
+        
+        formData.append("text",textInput);
+
+        fetch("/queries",{
+            method:"POST",
+            body:formData
+        })
+        .then(response=> response.text())
+        .then(result=> {
+            var chatMessages = document.getElementById("chat-messages");
+            var message = document.createElement("div")
+            message.textContent = result
+            chatMessages.appendChild(message);
+        })
+        .catch(err=> {
+            console.error('Error:',error);
+        })
+    }
+</script>
+
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+</html>
